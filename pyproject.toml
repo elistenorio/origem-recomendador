@@ -1,0 +1,9 @@
+[project]
+name = "origem-recomendador"
+version = "0.1.0"
+description = "Mockup do Módulo de Recomendação de Produtos do Origem"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bentoml>=1.4.39",
+]
