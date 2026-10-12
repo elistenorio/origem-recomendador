@@ -1,0 +1,145 @@
+{
+  "descricao": "Catálogo de peças do Origem. vendas_janela e visualizacoes_janela simulam as contagens dos últimos 30 dias (design.md, seção 3).",
+  "pecas": [
+    {
+      "peca_id": "p-01",
+      "nome": "Lampião e Maria Bonita",
+      "tecnica_artesanal": "Cerâmica",
+      "polo_origem": "Caruaru",
+      "estoque": 5,
+      "publicada": true,
+      "vendas_janela": 40,
+      "visualizacoes_janela": 350
+    },
+    {
+      "peca_id": "p-02",
+      "nome": "Trio de forró",
+      "tecnica_artesanal": "Cerâmica",
+      "polo_origem": "Caruaru",
+      "estoque": 3,
+      "publicada": true,
+      "vendas_janela": 12,
+      "visualizacoes_janela": 150
+    },
+    {
+      "peca_id": "p-03",
+      "nome": "Bumba meu boi",
+      "tecnica_artesanal": "Cerâmica",
+      "polo_origem": "Caruaru",
+      "estoque": 2,
+      "publicada": true,
+      "vendas_janela": 0,
+      "visualizacoes_janela": 0
+    },
+    {
+      "peca_id": "p-04",
+      "nome": "Conjunto Maracatu",
+      "tecnica_artesanal": "Cerâmica",
+      "polo_origem": "Caruaru",
+      "estoque": 4,
+      "publicada": true,
+      "vendas_janela": 20,
+      "visualizacoes_janela": 210
+    },
+    {
+      "peca_id": "p-05",
+      "nome": "São Francisco de Assis",
+      "tecnica_artesanal": "Cerâmica",
+      "polo_origem": "Tracunhaém",
+      "estoque": 6,
+      "publicada": true,
+      "vendas_janela": 26,
+      "visualizacoes_janela": 250
+    },
+    {
+      "peca_id": "p-06",
+      "nome": "Santo Antônio",
+      "tecnica_artesanal": "Cerâmica",
+      "polo_origem": "Tracunhaém",
+      "estoque": 2,
+      "publicada": true,
+      "vendas_janela": 5,
+      "visualizacoes_janela": 90
+    },
+    {
+      "peca_id": "p-07",
+      "nome": "Toalha de mesa redonda",
+      "tecnica_artesanal": "Renda renascença",
+      "polo_origem": "Poção",
+      "estoque": 0,
+      "publicada": true,
+      "vendas_janela": 60,
+      "visualizacoes_janela": 500
+    },
+    {
+      "peca_id": "p-08",
+      "nome": "Caminho de mesa",
+      "tecnica_artesanal": "Renda renascença",
+      "polo_origem": "Poção",
+      "estoque": 3,
+      "publicada": false,
+      "vendas_janela": 32,
+      "visualizacoes_janela": 300
+    },
+    {
+      "peca_id": "p-09",
+      "nome": "Centro de mesa",
+      "tecnica_artesanal": "Renda renascença",
+      "polo_origem": "Poção",
+      "estoque": 4,
+      "publicada": true,
+      "vendas_janela": 15,
+      "visualizacoes_janela": 180
+    },
+    {
+      "peca_id": "p-10",
+      "nome": "Jogo americano",
+      "tecnica_artesanal": "Renda renascença",
+      "polo_origem": "Poção",
+      "estoque": 5,
+      "publicada": true,
+      "vendas_janela": 7,
+      "visualizacoes_janela": 105
+    },
+    {
+      "peca_id": "p-11",
+      "nome": "Toalha de bandeja",
+      "tecnica_artesanal": "Renda renascença",
+      "polo_origem": "Pesqueira",
+      "estoque": 3,
+      "publicada": true,
+      "vendas_janela": 9,
+      "visualizacoes_janela": 125
+    },
+    {
+      "peca_id": "p-12",
+      "nome": "Gravura Festa de São João",
+      "tecnica_artesanal": "Xilogravura",
+      "polo_origem": "Bezerros",
+      "estoque": 10,
+      "publicada": true,
+      "vendas_janela": 52,
+      "visualizacoes_janela": 400
+    },
+    {
+      "peca_id": "p-13",
+      "nome": "Boneco de mamulengo",
+      "tecnica_artesanal": "Entalhe em madeira",
+      "polo_origem": "Glória do Goitá",
+      "estoque": 8,
+      "publicada": true,
+      "vendas_janela": 3,
+      "visualizacoes_janela": 80
+    },
+    {
+      "peca_id": "p-14",
+      "nome": "Bata bordada",
+      "tecnica_artesanal": "Bordado manual",
+      "polo_origem": "Passira",
+      "estoque": 7,
+      "publicada": true,
+      "vendas_janela": 2,
+      "visualizacoes_janela": 65
+    }
+  ]
+}
