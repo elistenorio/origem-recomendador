@@ -171,155 +171,283 @@ São 12 peças disponíveis. A p-07 está esgotada e a p-08 está despublicada.
 
 ## Casos de teste
 
-Com o serviço rodando, execute cada comando em **outro terminal**. Os comandos usam `curl` em Linux, macOS ou Git Bash (Windows); veja a [nota para o PowerShell](#windows-powershell) abaixo.
+Com o serviço rodando, execute cada comando em **outro terminal**, na pasta do projeto. Os comandos usam `curl` em Linux, macOS ou Git Bash (Windows); veja a [nota para o PowerShell](#windows-powershell) abaixo.
 
-A resposta do serviço vem em uma linha só. Os campos `recomendacao_id` e `gerado_em` mudam a cada chamada; todo o resto deve ser igual ao esperado.
+Cada comando termina com `| uv run python -m json.tool`, que formata a resposta para leitura (sem ele, o JSON vem em uma linha só). Os campos `recomendacao_id` e `gerado_em` mudam a cada chamada; todo o resto deve ser igual ao esperado.
 
 ### Teste 1: página inicial, visitante sem histórico (RF-02, RF-04, RF-05, RF-06)
 
 ```bash
-curl -X POST http://localhost:3000/v1/recomendacoes \
+curl -s -X POST http://localhost:3000/v1/recomendacoes \
   -H "Content-Type: application/json" \
-  -d '{"sessao_id": "s-001", "contexto": "pagina_inicial"}'
+  -d '{"sessao_id": "s-001", "contexto": "pagina_inicial"}' \
+  | uv run python -m json.tool
 ```
 
-**Resultado esperado:** estratégia `cold_start` e **10 itens** (o padrão) das 12 peças disponíveis, em ordem de popularidade.
-
-| Posição | Peça | Pontuação | Critérios |
-|---|---|---|---|
-| 1 | p-12 Gravura Festa de São João | 0.97 | popularidade |
-| 2 | p-01 Lampião e Maria Bonita | 0.94 | popularidade |
-| 3 | p-05 São Francisco de Assis | 0.89 | popularidade |
-| 4 | p-04 Conjunto Maracatu | 0.86 | popularidade |
-| 5 | p-09 Centro de mesa | 0.83 | popularidade |
-| 6 | p-02 Trio de forró | 0.8 | popularidade |
-| 7 | p-11 Toalha de bandeja | 0.77 | popularidade |
-| 8 | p-10 Jogo americano | 0.74 | popularidade |
-| 9 | p-06 Santo Antônio | 0.71 | popularidade |
-| 10 | p-13 Boneco de mamulengo | 0.68 | popularidade |
-
-**O que conferir:** a p-07 (a mais popular do catálogo, mas esgotada) e a p-08 (despublicada) não aparecem. As 2 peças disponíveis menos populares (p-14 e p-03) ficam de fora pelo limite padrão de 10.
-
-<details>
-<summary>JSON completo esperado</summary>
+**Resultado esperado:**
 
 ```json
 {
-  "recomendacao_id": "rec-xxxxxxxx",
-  "estrategia": "cold_start",
-  "contexto": "pagina_inicial",
-  "gerado_em": "AAAA-MM-DDTHH:MM:SS+00:00",
-  "itens": [
-    {"peca_id": "p-12", "posicao": 1, "pontuacao": 0.97, "criterios": ["popularidade"]},
-    {"peca_id": "p-01", "posicao": 2, "pontuacao": 0.94, "criterios": ["popularidade"]},
-    {"peca_id": "p-05", "posicao": 3, "pontuacao": 0.89, "criterios": ["popularidade"]},
-    {"peca_id": "p-04", "posicao": 4, "pontuacao": 0.86, "criterios": ["popularidade"]},
-    {"peca_id": "p-09", "posicao": 5, "pontuacao": 0.83, "criterios": ["popularidade"]},
-    {"peca_id": "p-02", "posicao": 6, "pontuacao": 0.8, "criterios": ["popularidade"]},
-    {"peca_id": "p-11", "posicao": 7, "pontuacao": 0.77, "criterios": ["popularidade"]},
-    {"peca_id": "p-10", "posicao": 8, "pontuacao": 0.74, "criterios": ["popularidade"]},
-    {"peca_id": "p-06", "posicao": 9, "pontuacao": 0.71, "criterios": ["popularidade"]},
-    {"peca_id": "p-13", "posicao": 10, "pontuacao": 0.68, "criterios": ["popularidade"]}
-  ]
+    "recomendacao_id": "rec-xxxxxxxx",
+    "estrategia": "cold_start",
+    "contexto": "pagina_inicial",
+    "gerado_em": "AAAA-MM-DDTHH:MM:SS+00:00",
+    "itens": [
+        {
+            "peca_id": "p-12",
+            "posicao": 1,
+            "pontuacao": 0.97,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-01",
+            "posicao": 2,
+            "pontuacao": 0.94,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-05",
+            "posicao": 3,
+            "pontuacao": 0.89,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-04",
+            "posicao": 4,
+            "pontuacao": 0.86,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-09",
+            "posicao": 5,
+            "pontuacao": 0.83,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-02",
+            "posicao": 6,
+            "pontuacao": 0.8,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-11",
+            "posicao": 7,
+            "pontuacao": 0.77,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-10",
+            "posicao": 8,
+            "pontuacao": 0.74,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-06",
+            "posicao": 9,
+            "pontuacao": 0.71,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-13",
+            "posicao": 10,
+            "pontuacao": 0.68,
+            "criterios": [
+                "popularidade"
+            ]
+        }
+    ]
 }
 ```
 
-</details>
+**O que conferir:**
+- Estratégia `cold_start` e 10 itens (o padrão) das 12 peças disponíveis, em ordem de popularidade.
+- A p-07 (a mais popular do catálogo, mas esgotada) e a p-08 (despublicada) não aparecem.
 
 ### Teste 2: página de produto, peças similares (RF-01, RF-02)
 
 O comprador está vendo a **p-04 Conjunto Maracatu** (Cerâmica, Caruaru).
 
 ```bash
-curl -X POST http://localhost:3000/v1/recomendacoes \
+curl -s -X POST http://localhost:3000/v1/recomendacoes \
   -H "Content-Type: application/json" \
-  -d '{"sessao_id": "s-002", "contexto": "pagina_produto", "peca_referencia_id": "p-04"}'
+  -d '{"sessao_id": "s-002", "contexto": "pagina_produto", "peca_referencia_id": "p-04"}' \
+  | uv run python -m json.tool
 ```
 
-**Resultado esperado:** as peças aparecem em três grupos de similaridade.
-
-| Posição | Peça | Grupo | Pontuação | Critérios |
-|---|---|---|---|---|
-| 1 | p-01 Lampião e Maria Bonita | Mesma técnica e mesmo polo (Cerâmica, Caruaru) | 0.98 | similaridade, popularidade |
-| 2 | p-02 Trio de forró | Mesma técnica e mesmo polo | 0.94 | similaridade, popularidade |
-| 3 | p-03 Bumba meu boi | Mesma técnica e mesmo polo | 0.7 | similaridade |
-| 4 | p-05 São Francisco de Assis | Mesma técnica, outro polo (Tracunhaém) | 0.76 | similaridade, popularidade |
-| 5 | p-06 Santo Antônio | Mesma técnica, outro polo | 0.7 | similaridade, popularidade |
-| 6 | p-12 Gravura Festa de São João | Técnica diferente | 0.29 | popularidade |
-| 7 | p-09 Centro de mesa | Técnica diferente | 0.25 | popularidade |
-| 8 | p-11 Toalha de bandeja | Técnica diferente | 0.23 | popularidade |
-| 9 | p-10 Jogo americano | Técnica diferente | 0.22 | popularidade |
-| 10 | p-13 Boneco de mamulengo | Técnica diferente | 0.2 | popularidade |
-
-**O que conferir:**
-- A própria p-04 não aparece na lista.
-- A **p-03 (0.7) vem antes da p-05 (0.76)**, mesmo com pontuação menor. Isso é intencional: o RF-01 manda priorizar o mesmo polo, então a ordem segue primeiro o grupo de similaridade e só depois a pontuação.
-- A p-03 não tem nenhuma venda (popularidade 0, critério só `similaridade`), mas continua elegível (RF-02) e aparece bem posicionada por ser parecida com a peça vista.
-
-<details>
-<summary>JSON completo esperado</summary>
+**Resultado esperado:**
 
 ```json
 {
-  "recomendacao_id": "rec-xxxxxxxx",
-  "estrategia": "cold_start",
-  "contexto": "pagina_produto",
-  "gerado_em": "AAAA-MM-DDTHH:MM:SS+00:00",
-  "itens": [
-    {"peca_id": "p-01", "posicao": 1, "pontuacao": 0.98, "criterios": ["similaridade", "popularidade"]},
-    {"peca_id": "p-02", "posicao": 2, "pontuacao": 0.94, "criterios": ["similaridade", "popularidade"]},
-    {"peca_id": "p-03", "posicao": 3, "pontuacao": 0.7, "criterios": ["similaridade"]},
-    {"peca_id": "p-05", "posicao": 4, "pontuacao": 0.76, "criterios": ["similaridade", "popularidade"]},
-    {"peca_id": "p-06", "posicao": 5, "pontuacao": 0.7, "criterios": ["similaridade", "popularidade"]},
-    {"peca_id": "p-12", "posicao": 6, "pontuacao": 0.29, "criterios": ["popularidade"]},
-    {"peca_id": "p-09", "posicao": 7, "pontuacao": 0.25, "criterios": ["popularidade"]},
-    {"peca_id": "p-11", "posicao": 8, "pontuacao": 0.23, "criterios": ["popularidade"]},
-    {"peca_id": "p-10", "posicao": 9, "pontuacao": 0.22, "criterios": ["popularidade"]},
-    {"peca_id": "p-13", "posicao": 10, "pontuacao": 0.2, "criterios": ["popularidade"]}
-  ]
+    "recomendacao_id": "rec-xxxxxxxx",
+    "estrategia": "cold_start",
+    "contexto": "pagina_produto",
+    "gerado_em": "AAAA-MM-DDTHH:MM:SS+00:00",
+    "itens": [
+        {
+            "peca_id": "p-01",
+            "posicao": 1,
+            "pontuacao": 0.98,
+            "criterios": [
+                "similaridade",
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-02",
+            "posicao": 2,
+            "pontuacao": 0.94,
+            "criterios": [
+                "similaridade",
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-03",
+            "posicao": 3,
+            "pontuacao": 0.7,
+            "criterios": [
+                "similaridade"
+            ]
+        },
+        {
+            "peca_id": "p-05",
+            "posicao": 4,
+            "pontuacao": 0.76,
+            "criterios": [
+                "similaridade",
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-06",
+            "posicao": 5,
+            "pontuacao": 0.7,
+            "criterios": [
+                "similaridade",
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-12",
+            "posicao": 6,
+            "pontuacao": 0.29,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-09",
+            "posicao": 7,
+            "pontuacao": 0.25,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-11",
+            "posicao": 8,
+            "pontuacao": 0.23,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-10",
+            "posicao": 9,
+            "pontuacao": 0.22,
+            "criterios": [
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-13",
+            "posicao": 10,
+            "pontuacao": 0.2,
+            "criterios": [
+                "popularidade"
+            ]
+        }
+    ]
 }
 ```
 
-</details>
+**O que conferir:**
+- As peças vêm em três grupos: p-01, p-02 e p-03 (mesma técnica e mesmo polo: Cerâmica, Caruaru); p-05 e p-06 (mesma técnica, outro polo: Tracunhaém); depois as de outras técnicas.
+- A p-03 (0.7) vem antes da p-05 (0.76) mesmo tendo menos pontos, porque está num grupo mais similar: mesmo polo da peça vista. A ordem é primeiro por grupo (RF-01) e, dentro de cada grupo, pela pontuação.
+- A p-03 não tem nenhuma venda (critério só `similaridade`), mas continua elegível (RF-02).
+- A própria p-04 não aparece na lista.
 
 ### Teste 3: página de produto com peças indisponíveis e limite 3 (RF-05, RF-06)
 
 O comprador está vendo a **p-09 Centro de mesa** (Renda renascença, Poção) e o sistema pede só 3 peças.
 
 ```bash
-curl -X POST http://localhost:3000/v1/recomendacoes \
+curl -s -X POST http://localhost:3000/v1/recomendacoes \
   -H "Content-Type: application/json" \
-  -d '{"sessao_id": "s-003", "contexto": "pagina_produto", "peca_referencia_id": "p-09", "limite": 3}'
+  -d '{"sessao_id": "s-003", "contexto": "pagina_produto", "peca_referencia_id": "p-09", "limite": 3}' \
+  | uv run python -m json.tool
 ```
 
-**Resultado esperado:** exatamente **3 itens**.
-
-| Posição | Peça | Grupo | Pontuação | Critérios |
-|---|---|---|---|---|
-| 1 | p-10 Jogo americano | Mesma técnica e mesmo polo (Renda renascença, Poção) | 0.92 | similaridade, popularidade |
-| 2 | p-11 Toalha de bandeja | Mesma técnica, outro polo (Pesqueira) | 0.72 | similaridade, popularidade |
-| 3 | p-12 Gravura Festa de São João | Técnica diferente | 0.29 | popularidade |
-
-**O que conferir:** a p-07 (esgotada) e a p-08 (despublicada) têm a mesma técnica e o mesmo polo da referência e são as mais populares. Sem o filtro de disponibilidade, elas ocupariam as posições 1 e 2. Como estão indisponíveis, não aparecem.
-
-<details>
-<summary>JSON completo esperado</summary>
+**Resultado esperado:**
 
 ```json
 {
-  "recomendacao_id": "rec-xxxxxxxx",
-  "estrategia": "cold_start",
-  "contexto": "pagina_produto",
-  "gerado_em": "AAAA-MM-DDTHH:MM:SS+00:00",
-  "itens": [
-    {"peca_id": "p-10", "posicao": 1, "pontuacao": 0.92, "criterios": ["similaridade", "popularidade"]},
-    {"peca_id": "p-11", "posicao": 2, "pontuacao": 0.72, "criterios": ["similaridade", "popularidade"]},
-    {"peca_id": "p-12", "posicao": 3, "pontuacao": 0.29, "criterios": ["popularidade"]}
-  ]
+    "recomendacao_id": "rec-xxxxxxxx",
+    "estrategia": "cold_start",
+    "contexto": "pagina_produto",
+    "gerado_em": "AAAA-MM-DDTHH:MM:SS+00:00",
+    "itens": [
+        {
+            "peca_id": "p-10",
+            "posicao": 1,
+            "pontuacao": 0.92,
+            "criterios": [
+                "similaridade",
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-11",
+            "posicao": 2,
+            "pontuacao": 0.72,
+            "criterios": [
+                "similaridade",
+                "popularidade"
+            ]
+        },
+        {
+            "peca_id": "p-12",
+            "posicao": 3,
+            "pontuacao": 0.29,
+            "criterios": [
+                "popularidade"
+            ]
+        }
+    ]
 }
 ```
 
-</details>
+**O que conferir:**
+- Exatamente 3 itens.
+- A p-07 (esgotada) e a p-08 (despublicada) têm a mesma técnica e o mesmo polo da referência e são as mais populares. Sem o filtro de disponibilidade, elas ocupariam as posições 1 e 2; como estão indisponíveis, não aparecem.
 
 ### Windows (PowerShell)
 
