@@ -57,6 +57,20 @@ Este mockup implementa o caminho feliz da especificação da AV1, que está em [
 - [Git](https://git-scm.com/)
 - [uv](https://docs.astral.sh/uv/getting-started/installation/), gerenciador de projetos Python. Ele baixa sozinho o Python 3.13 usado no projeto.
 
+Para instalar o uv:
+
+```bash
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+```powershell
+# Windows (PowerShell)
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Depois de instalar, abra um terminal novo para o comando `uv` ser reconhecido.
+
 ## Instalação
 
 ```bash
